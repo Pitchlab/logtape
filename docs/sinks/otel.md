@@ -82,6 +82,13 @@ for backward compatibility.
 > dynamically imported only when needed, so browser bundles won't include
 > the gRPC code if you're not using it.
 
+> [!NOTE]
+> The `grpc` and `http/protobuf` exporters are optional peer dependencies.
+> To use one of these protocols, install
+> *@opentelemetry/exporter-logs-otlp-grpc* or
+> *@opentelemetry/exporter-logs-otlp-proto* next to *@logtape/otel*.
+> The `http/json` exporter is always installed.
+
 
 Custom configuration
 --------------------

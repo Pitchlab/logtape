@@ -69,13 +69,21 @@
     "dist/"
   ],
   "peerDependencies": {
-    "@logtape/logtape": "workspace:^"
+    "@logtape/logtape": "workspace:^",
+    "@opentelemetry/exporter-logs-otlp-grpc": "catalog:",
+    "@opentelemetry/exporter-logs-otlp-proto": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "@opentelemetry/exporter-logs-otlp-grpc": {
+      "optional": true
+    },
+    "@opentelemetry/exporter-logs-otlp-proto": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@opentelemetry/api": "catalog:",
-    "@opentelemetry/exporter-logs-otlp-grpc": "catalog:",
     "@opentelemetry/exporter-logs-otlp-http": "catalog:",
-    "@opentelemetry/exporter-logs-otlp-proto": "catalog:",
     "@opentelemetry/otlp-exporter-base": "catalog:",
     "@opentelemetry/resources": "catalog:",
     "@opentelemetry/sdk-logs": "catalog:",

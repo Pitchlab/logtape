@@ -137,6 +137,10 @@ export OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
 ~~~~
 
+The `grpc` and `http/protobuf` exporters are optional peer dependencies.
+To use one of these protocols, install *@opentelemetry/exporter-logs-otlp-grpc*
+or *@opentelemetry/exporter-logs-otlp-proto* next to *@logtape/otel*.
+
 The available protocols are:
 
  -  `grpc`: Uses gRPC transport.  This is only available in server environments
