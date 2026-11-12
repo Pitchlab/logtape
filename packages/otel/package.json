@@ -73,7 +73,6 @@
   },
   "dependencies": {
     "@opentelemetry/api": "catalog:",
-    "@opentelemetry/api-logs": "catalog:",
     "@opentelemetry/exporter-logs-otlp-grpc": "catalog:",
     "@opentelemetry/exporter-logs-otlp-http": "catalog:",
     "@opentelemetry/exporter-logs-otlp-proto": "catalog:",
