@@ -144,6 +144,23 @@ const _importModule = (specifier: string): Promise<any> =>
   import(/* @vite-ignore */ /* webpackIgnore: true */ specifier);
 
 /**
+ * Imports the exporter package for `protocol`.  The gRPC and protobuf
+ * exporters are optional peer dependencies, so a missing one is reported
+ * with the package to install.
+ */
+// deno-lint-ignore no-explicit-any
+async function importExporter(specifier: string, protocol: string): Promise<any> {
+  try {
+    return await _importModule(specifier);
+  } catch (cause) {
+    throw new Error(
+      `OTLP protocol "${protocol}" needs ${specifier}; install it next to @logtape/otel.`,
+      { cause },
+    );
+  }
+}
+
+/**
  * Creates an OTLP log exporter based on the detected protocol.
  * Uses dynamic imports to maintain browser compatibility when gRPC is not used.
  * @param config Optional exporter configuration.
@@ -157,21 +174,24 @@ async function createOtlpExporter(
 
   switch (protocol) {
     case "grpc": {
-      const { OTLPLogExporter } = await _importModule(
+      const { OTLPLogExporter } = await importExporter(
         "@opentelemetry/exporter-logs-otlp-grpc",
+        protocol,
       );
       return new OTLPLogExporter(config);
     }
     case "http/protobuf": {
-      const { OTLPLogExporter } = await _importModule(
+      const { OTLPLogExporter } = await importExporter(
         "@opentelemetry/exporter-logs-otlp-proto",
+        protocol,
       );
       return new OTLPLogExporter(config);
     }
     case "http/json":
     default: {
-      const { OTLPLogExporter } = await _importModule(
+      const { OTLPLogExporter } = await importExporter(
         "@opentelemetry/exporter-logs-otlp-http",
+        protocol,
       );
       return new OTLPLogExporter(config);
     }

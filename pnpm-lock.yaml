@@ -214,7 +214,7 @@ importers:
         specifier: 'workspace:'
         version: link:../packages/logtape
       '@logtape/otel':
-        specifier: 'workspace:'
+        specifier: workspace:@pitchlab/logtape-otel@*
         version: link:../packages/otel
       '@logtape/pretty':
         specifier: 'workspace:'
@@ -6531,7 +6531,7 @@ snapshots:
   '@opentelemetry/resources@1.30.1(@opentelemetry/api@1.9.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
-      '@opentelemetry/core': 1.30.1(@opentelemetry/api@1.9.0)
+      '@opentelemetry/core': 1.30.1(@opentelemetry/api@1.10.0)
       '@opentelemetry/semantic-conventions': 1.28.0
 
   '@opentelemetry/resources@3.1.1(@opentelemetry/api@1.10.0)':

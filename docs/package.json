@@ -22,7 +22,7 @@
     "@logtape/hono": "workspace:",
     "@logtape/koa": "workspace:",
     "@logtape/logtape": "workspace:",
-    "@logtape/otel": "workspace:",
+    "@logtape/otel": "workspace:@pitchlab/logtape-otel@*",
     "@logtape/pretty": "workspace:",
     "@logtape/redaction": "workspace:",
     "@logtape/sentry": "workspace:",
