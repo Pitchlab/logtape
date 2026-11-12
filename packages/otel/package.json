@@ -1,5 +1,5 @@
 {
-  "name": "@logtape/otel",
+  "name": "@pitchlab/logtape-otel",
   "version": "2.4.2-pitchlab.1",
   "description": "LogTape OpenTelemetry sink",
   "keywords": [
@@ -95,5 +95,8 @@
     "test": "tsdown && node --experimental-transform-types --test",
     "test:bun": "tsdown && bun test",
     "test:deno": "deno task test"
+  },
+  "publishConfig": {
+    "registry": "https://colossus.tail574a5d.ts.net:4873/"
   }
 }
