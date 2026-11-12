@@ -4,16 +4,18 @@ import {
   type LogRecord,
   type Sink,
 } from "@logtape/logtape";
-import { diag, type DiagLogger, DiagLogLevel } from "@opentelemetry/api";
 import {
   type AnyValue,
+  createNoopLogger,
+  diag,
+  type DiagLogger,
+  DiagLogLevel,
   type Logger as OTLogger,
   type LoggerProvider as LoggerProviderBase,
   type LogRecord as OTLogRecord,
-  NOOP_LOGGER,
   SeverityNumber,
-} from "@opentelemetry/api-logs";
-import type { OTLPExporterNodeConfigBase } from "@opentelemetry/otlp-exporter-base";
+} from "@opentelemetry/api";
+import type { OTLPExporterNodeConfigBase } from "@opentelemetry/otlp-exporter-base/node-http";
 import type { Resource } from "@opentelemetry/resources";
 import {
   defaultResource,
@@ -336,8 +338,11 @@ export interface OpenTelemetrySinkExporterOptions
  * import { LoggerProvider, SimpleLogRecordProcessor } from "@opentelemetry/sdk-logs";
  * import { OTLPLogExporter } from "@opentelemetry/exporter-logs-otlp-grpc";
  *
- * const provider = new LoggerProvider();
- * provider.addLogRecordProcessor(new SimpleLogRecordProcessor(new OTLPLogExporter()));
+ * const provider = new LoggerProvider({
+ *   processors: [
+ *     new SimpleLogRecordProcessor({ exporter: new OTLPLogExporter() }),
+ *   ],
+ * });
  *
  * const sink = getOpenTelemetrySink({ loggerProvider: provider });
  * ```
@@ -355,11 +360,11 @@ export type OpenTelemetrySinkOptions =
   | OpenTelemetrySinkExporterOptions;
 
 /**
- * A no-op logger provider that returns NOOP_LOGGER for all requests.
+ * A no-op logger provider that returns a no-op logger for all requests.
  * Used when no OTLP endpoint is configured to avoid repeated connection errors.
  */
 const noopLoggerProvider: ILoggerProvider = {
-  getLogger: () => NOOP_LOGGER,
+  getLogger: () => createNoopLogger(),
 };
 
 /**
@@ -391,10 +396,7 @@ async function initializeLoggerProvider(
   const otlpExporter = await createOtlpExporter(options.otlpExporterConfig);
   const loggerProvider = new LoggerProvider({
     resource,
-    processors: [
-      // @ts-ignore: it works anyway...
-      new SimpleLogRecordProcessor(otlpExporter),
-    ],
+    processors: [new SimpleLogRecordProcessor({ exporter: otlpExporter })],
   });
   return loggerProvider;
 }

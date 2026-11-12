@@ -95,7 +95,7 @@ const exporter = new OTLPLogExporter({
   headers: { "x-api-key": "my-api-key" },
 });
 const loggerProvider = new LoggerProvider({
-  processors: [new SimpleLogRecordProcessor(exporter)],
+  processors: [new SimpleLogRecordProcessor({ exporter })],
 });
 
 await configure({
