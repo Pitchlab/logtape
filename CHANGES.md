@@ -8,6 +8,19 @@ Version 2.5.0
 
 To be released.
 
+### @logtape/otel
+
+ -  Moved to the OpenTelemetry JS 3.x line: *@opentelemetry/api* 1.10,
+    *@opentelemetry/sdk-logs* and *@opentelemetry/resources* 3.1, and the
+    OTLP packages 0.301.  *@opentelemetry/api-logs* is no longer a dependency,
+    because *@opentelemetry/api* 1.10 includes the logs API.
+ -  The gRPC and HTTP/protobuf log exporters are now optional peer
+    dependencies, so a project that passes its own `loggerProvider` no longer
+    installs *@grpc/grpc-js*.  To use `OTEL_EXPORTER_OTLP_PROTOCOL=grpc` or
+    `http/protobuf`, install *@opentelemetry/exporter-logs-otlp-grpc* or
+    *@opentelemetry/exporter-logs-otlp-proto*; a missing one is reported with
+    the package name.
+
 ### @logtape/syslog
 
  -  Added the `dropQueuedOnError` option to `getSyslogSink()` to discard queued
